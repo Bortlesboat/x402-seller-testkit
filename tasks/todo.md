@@ -12,3 +12,8 @@
 - [x] Implement minimal header helpers and `challenge-shape`
 - [ ] Run focused verification for completed slices
 - [ ] Commit the `challenge-shape` slice
+- [x] Write failing `payment-requirements-parse` tests
+- [x] Run focused `payment-requirements-parse` tests to verify the red state
+- [x] Implement `payment-requirements-parse`
+- [x] Re-run focused `payment-requirements-parse` tests to reach green
+- [ ] Commit the `payment-requirements-parse` slice
