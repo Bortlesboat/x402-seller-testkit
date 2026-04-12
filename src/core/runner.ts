@@ -1,6 +1,9 @@
-import type { CheckResult, RunConfig } from "./types";
-import { runChallengeShapeCheck } from "../checks/challenge-shape";
-import { runPaymentRequirementsParseCheck } from "../checks/payment-requirements-parse";
+import type { CheckResult, RunConfig } from "./types.js";
+import { runChallengeShapeCheck } from "../checks/challenge-shape.js";
+import { runMalformedPaymentRejectedCheck } from "../checks/malformed-payment-rejected.js";
+import { runPaymentRequirementsParseCheck } from "../checks/payment-requirements-parse.js";
+import { runSuccessPathCheck } from "../checks/success-path.js";
+import { malformedPaymentHeaders } from "../fixtures/malformed-payment.js";
 
 type RunnerDeps = {
   fetchImpl?: typeof fetch;
@@ -41,14 +44,22 @@ export async function runChecks(config: RunConfig, deps: RunnerDeps = {}) {
   }
 
   results.push(
-    buildSkip(
-      "malformed-payment-rejected",
-      "Skipped until malformed-payment-rejected is implemented",
-      "Add malformed PAYMENT-SIGNATURE coverage.",
-    ),
+    await runMalformedPaymentRejectedCheck({
+      target: config.target,
+      malformedHeaders: malformedPaymentHeaders,
+      fetchImpl: deps.fetchImpl
+    }),
   );
 
-  if (!config.payment.ready) {
+  if (challengeResult.status !== "pass" || !challengeResult.evidence) {
+    results.push(
+      buildSkip(
+        "success-path",
+        "Skipped because challenge-shape did not produce a valid PAYMENT-REQUIRED payload",
+        challengeResult.fix,
+      ),
+    );
+  } else if (!config.payment.ready) {
     results.push(
       buildSkip(
         "success-path",
@@ -58,11 +69,12 @@ export async function runChecks(config: RunConfig, deps: RunnerDeps = {}) {
     );
   } else {
     results.push(
-      buildSkip(
-        "success-path",
-        "Skipped until success-path is implemented",
-        "Implement the paid-path runner for this profile.",
-      ),
+      await runSuccessPathCheck({
+        target: config.target,
+        payment: config.payment,
+        paymentRequired: challengeResult.evidence,
+        fetchImpl: deps.fetchImpl
+      }),
     );
   }
 

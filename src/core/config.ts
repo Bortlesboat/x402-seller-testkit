@@ -1,7 +1,7 @@
-import { ConfigError } from "./errors";
-import type { PaymentConfig, ResolveRunConfigInput, RunConfig, RunProfile } from "./types";
-import { basicEvmProfile } from "../profiles/basic-evm";
-import { localMockProfile } from "../profiles/local-mock";
+import { ConfigError } from "./errors.js";
+import type { PaymentConfig, ResolveRunConfigInput, RunConfig, RunProfile } from "./types.js";
+import { basicEvmProfile } from "../profiles/basic-evm.js";
+import { localMockProfile } from "../profiles/local-mock.js";
 
 const profiles: Record<string, RunProfile> = {
   "local-mock": localMockProfile,

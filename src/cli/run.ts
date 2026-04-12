@@ -1,7 +1,7 @@
-import { parseArgs } from "./args";
-import { resolveRunConfig } from "../core/config";
-import { summarizeRun, writeJsonReport } from "../core/report";
-import { runChecks } from "../core/runner";
+import { parseArgs } from "./args.js";
+import { resolveRunConfig } from "../core/config.js";
+import { summarizeRun, writeJsonReport } from "../core/report.js";
+import { runChecks } from "../core/runner.js";
 
 type RunCliDeps = {
   fetchImpl?: typeof fetch;

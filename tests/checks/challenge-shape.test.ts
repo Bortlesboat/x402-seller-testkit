@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
 import { encodePaymentRequiredHeader } from "@x402/core/http";
+import type { PaymentRequired } from "@x402/core/types";
 
-import { runChallengeShapeCheck } from "../../src/checks/challenge-shape";
+import { runChallengeShapeCheck } from "../../src/checks/challenge-shape.js";
 
-const validPaymentRequired = {
+const validPaymentRequired: PaymentRequired = {
   x402Version: 2,
   resource: {
     url: "http://localhost:4123/protected",
@@ -23,7 +24,7 @@ const validPaymentRequired = {
       }
     }
   ]
-} as const;
+};
 
 describe("runChallengeShapeCheck", () => {
   it("passes when the unpaid probe returns 402 with a valid PAYMENT-REQUIRED header", async () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { resolveRunConfig } from "../../src/core/config";
+import { resolveRunConfig } from "../../src/core/config.js";
 
 describe("resolveRunConfig", () => {
   it("resolves minimal local-mock config with defaults", () => {

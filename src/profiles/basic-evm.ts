@@ -1,4 +1,4 @@
-import type { RunProfile } from "../core/types";
+import type { RunProfile } from "../core/types.js";
 
 export const basicEvmProfile: RunProfile = {
   id: "basic-evm",

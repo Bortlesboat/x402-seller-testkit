@@ -1,6 +1,6 @@
 import { parsePaymentRequired } from "@x402/core/schemas";
 
-import type { CheckResult } from "../core/types";
+import type { CheckResult } from "../core/types.js";
 
 type PaymentRequirementsParseCheckInput = {
   paymentRequired: unknown;

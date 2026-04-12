@@ -9,6 +9,8 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "example:local": "tsx examples/local-express/main.ts",
     "lint:check": "eslint . --ext .ts",
     "format:check": "prettier --check \"**/*.{ts,json,md}\""
   },
@@ -16,11 +18,13 @@
     "@x402/core": "^2.9.0",
     "@x402/express": "^2.9.0",
     "@x402/fetch": "^2.9.0",
+    "express": "^5.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
     "@types/node": "^22.13.4",
+    "@types/express": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
     "eslint": "^9.24.0",

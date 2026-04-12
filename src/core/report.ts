@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
-import type { CheckResult, RunSummary, RunSummaryInput } from "./types";
+import type { CheckResult, RunSummary, RunSummaryInput } from "./types.js";
 
 function countStatuses(results: CheckResult[]) {
   return results.reduce(

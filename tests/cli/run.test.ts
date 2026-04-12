@@ -2,13 +2,14 @@ import { readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { encodePaymentRequiredHeader } from "@x402/core/http";
+import { encodePaymentRequiredHeader, encodePaymentResponseHeader } from "@x402/core/http";
+import type { PaymentRequired, SettleResponse } from "@x402/core/types";
 
-import { runCli } from "../../src/cli/run";
+import { runCli } from "../../src/cli/run.js";
 
 const reportPath = join(process.cwd(), "reports", "cli-test-report.json");
 
-const validPaymentRequired = {
+const validPaymentRequired: PaymentRequired = {
   x402Version: 2,
   resource: {
     url: "http://localhost:4123/protected",
@@ -28,7 +29,40 @@ const validPaymentRequired = {
       }
     }
   ]
-} as const;
+};
+
+const validSettleResponse: SettleResponse = {
+  success: true,
+  payer: "mock-payer",
+  transaction: "0xmocksettlement",
+  network: "mock:local",
+  amount: "10000"
+};
+
+function createHappyPathFetchMock() {
+  return vi
+    .fn()
+    .mockResolvedValueOnce(
+      new Response(null, {
+        status: 402,
+        headers: {
+          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired)
+        }
+      }),
+    )
+    .mockResolvedValueOnce(new Response(null, { status: 402 }))
+    .mockResolvedValueOnce(new Response(null, { status: 400 }))
+    .mockResolvedValueOnce(new Response(null, { status: 402 }))
+    .mockResolvedValueOnce(new Response(null, { status: 400 }))
+    .mockResolvedValueOnce(
+      new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: {
+          "PAYMENT-RESPONSE": encodePaymentResponseHeader(validSettleResponse)
+        }
+      }),
+    );
+}
 
 afterEach(async () => {
   await rm(reportPath, { force: true });
@@ -50,14 +84,7 @@ describe("runCli", () => {
 
   it("runs challenge-shape and payment-requirements-parse in order", async () => {
     const lines: string[] = [];
-    const fetchImpl = vi.fn().mockResolvedValue(
-      new Response(null, {
-        status: 402,
-        headers: {
-          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired)
-        }
-      }),
-    );
+    const fetchImpl = createHappyPathFetchMock();
 
     const exitCode = await runCli(
       ["run", "--target", "http://localhost:4123/protected", "--profile", "local-mock"],
@@ -72,17 +99,12 @@ describe("runCli", () => {
     expect(exitCode).toBe(0);
     expect(output).toContain("challenge-shape: pass");
     expect(output).toContain("payment-requirements-parse: pass");
+    expect(output).toContain("malformed-payment-rejected: pass");
+    expect(output).toContain("success-path: pass");
   });
 
   it("writes a JSON report when --report-json is provided", async () => {
-    const fetchImpl = vi.fn().mockResolvedValue(
-      new Response(null, {
-        status: 402,
-        headers: {
-          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired)
-        }
-      }),
-    );
+    const fetchImpl = createHappyPathFetchMock();
 
     const exitCode = await runCli(
       [

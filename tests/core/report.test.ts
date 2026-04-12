@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { summarizeRun } from "../../src/core/report";
+import { summarizeRun } from "../../src/core/report.js";
 
 describe("summarizeRun", () => {
   it("counts pass, fail, and skip results", () => {

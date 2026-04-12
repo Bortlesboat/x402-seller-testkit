@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { runPaymentRequirementsParseCheck } from "../../src/checks/payment-requirements-parse";
+import { runPaymentRequirementsParseCheck } from "../../src/checks/payment-requirements-parse.js";
 
 const validPaymentRequired = {
   x402Version: 2,

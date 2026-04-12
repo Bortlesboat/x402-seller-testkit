@@ -1,5 +1,5 @@
-import type { CheckResult } from "../core/types";
-import { decodeAndValidatePaymentRequiredHeader } from "../core/headers";
+import type { CheckResult } from "../core/types.js";
+import { decodeAndValidatePaymentRequiredHeader } from "../core/headers.js";
 
 type ChallengeShapeCheckInput = {
   target: string;
