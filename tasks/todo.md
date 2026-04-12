@@ -6,6 +6,9 @@
 - [x] Run focused tests to verify the red state
 - [x] Implement minimal config/profile/report modules
 - [x] Re-run focused tests to reach green
-- [ ] Commit the bootstrap contract
-- [ ] Write failing `challenge-shape` tests
-- [ ] Run focused `challenge-shape` tests to verify the red state
+- [x] Commit the bootstrap contract
+- [x] Write failing `challenge-shape` tests
+- [x] Run focused `challenge-shape` tests to verify the red state
+- [x] Implement minimal header helpers and `challenge-shape`
+- [ ] Run focused verification for completed slices
+- [ ] Commit the `challenge-shape` slice
