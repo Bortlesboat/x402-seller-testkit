@@ -56,7 +56,8 @@ export async function runChallengeShapeCheck(
     return {
       id: "challenge-shape",
       status: "pass",
-      summary: "402 returned with a valid PAYMENT-REQUIRED header"
+      summary: "402 returned with a valid PAYMENT-REQUIRED header",
+      evidence: decodeAndValidatePaymentRequiredHeader(paymentRequiredHeader)
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";

@@ -16,4 +16,10 @@
 - [x] Run focused `payment-requirements-parse` tests to verify the red state
 - [x] Implement `payment-requirements-parse`
 - [x] Re-run focused `payment-requirements-parse` tests to reach green
-- [ ] Commit the `payment-requirements-parse` slice
+- [x] Commit the `payment-requirements-parse` slice
+- [x] Write failing CLI runner tests
+- [x] Run focused CLI runner tests to verify the red state
+- [x] Implement minimal CLI args parsing and check runner
+- [x] Re-run focused CLI runner tests to reach green
+- [ ] Run focused multi-file verification for the runner slice
+- [ ] Commit the CLI runner slice

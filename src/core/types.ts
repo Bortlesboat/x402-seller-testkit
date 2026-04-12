@@ -5,6 +5,7 @@ export type CheckResult = {
   status: CheckStatus;
   summary: string;
   fix?: string;
+  evidence?: unknown;
 };
 
 export type RunProfileId = "local-mock" | "basic-evm";
