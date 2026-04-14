@@ -15,7 +15,8 @@ export function parseArgs(argv: string[]): ParsedRunArgs {
   if (argv[0] !== "run") {
     return {
       ok: false,
-      message: 'Usage: run --target <url> --profile <profile> [--report-json <path>]'
+      message:
+        "Usage: run --target <url> --profile <profile> [--report-json <path>]",
     };
   }
 
@@ -48,7 +49,7 @@ export function parseArgs(argv: string[]): ParsedRunArgs {
   if (!target || !profile) {
     return {
       ok: false,
-      message: "Missing required --target and --profile arguments."
+      message: "Missing required --target and --profile arguments.",
     };
   }
 
@@ -57,6 +58,6 @@ export function parseArgs(argv: string[]): ParsedRunArgs {
     command: "run",
     target,
     profile,
-    reportJson
+    reportJson,
   };
 }

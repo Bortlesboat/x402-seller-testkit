@@ -11,7 +11,7 @@ function buildFailure(summary: string): CheckResult {
     id: "payment-requirements-parse",
     status: "fail",
     summary,
-    fix: "Return a schema-valid PAYMENT-REQUIRED payload with usable seller metadata."
+    fix: "Return a schema-valid PAYMENT-REQUIRED payload with usable seller metadata.",
   };
 }
 
@@ -24,7 +24,9 @@ export function runPaymentRequirementsParseCheck(
     const issue = parsed.error.issues[0];
     const path = issue?.path?.join(".") || "paymentRequired";
     const message = issue?.message || "Unknown schema error";
-    return buildFailure(`Invalid payment requirements schema at ${path}: ${message}`);
+    return buildFailure(
+      `Invalid payment requirements schema at ${path}: ${message}`,
+    );
   }
 
   for (const requirement of parsed.data.accepts) {
@@ -33,7 +35,9 @@ export function runPaymentRequirementsParseCheck(
       try {
         new URL(facilitatorUrl);
       } catch {
-        return buildFailure(`Invalid facilitator URL in payment requirements: ${facilitatorUrl}`);
+        return buildFailure(
+          `Invalid facilitator URL in payment requirements: ${facilitatorUrl}`,
+        );
       }
     }
   }
@@ -41,6 +45,6 @@ export function runPaymentRequirementsParseCheck(
   return {
     id: "payment-requirements-parse",
     status: "pass",
-    summary: `Parsed ${parsed.data.accepts.length} accepts entries successfully`
+    summary: `Parsed ${parsed.data.accepts.length} accepts entries successfully`,
   };
 }

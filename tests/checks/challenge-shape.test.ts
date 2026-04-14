@@ -9,7 +9,7 @@ const validPaymentRequired: PaymentRequired = {
   resource: {
     url: "http://localhost:4123/protected",
     description: "Protected test resource",
-    mimeType: "application/json"
+    mimeType: "application/json",
   },
   accepts: [
     {
@@ -20,10 +20,10 @@ const validPaymentRequired: PaymentRequired = {
       payTo: "0x0000000000000000000000000000000000000002",
       maxTimeoutSeconds: 60,
       extra: {
-        facilitatorUrl: "https://facilitator.example.com"
-      }
-    }
-  ]
+        facilitatorUrl: "https://facilitator.example.com",
+      },
+    },
+  ],
 };
 
 describe("runChallengeShapeCheck", () => {
@@ -32,14 +32,14 @@ describe("runChallengeShapeCheck", () => {
       new Response(null, {
         status: 402,
         headers: {
-          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired)
-        }
+          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired),
+        },
       }),
     );
 
     const result = await runChallengeShapeCheck({
       target: "http://localhost:4123/protected",
-      fetchImpl
+      fetchImpl,
     });
 
     expect(result.status).toBe("pass");
@@ -49,7 +49,7 @@ describe("runChallengeShapeCheck", () => {
   it("fails when 402 is returned without the PAYMENT-REQUIRED header", async () => {
     const result = await runChallengeShapeCheck({
       target: "http://localhost:4123/protected",
-      fetchImpl: vi.fn().mockResolvedValue(new Response(null, { status: 402 }))
+      fetchImpl: vi.fn().mockResolvedValue(new Response(null, { status: 402 })),
     });
 
     expect(result.status).toBe("fail");
@@ -59,7 +59,7 @@ describe("runChallengeShapeCheck", () => {
   it("fails when an unpaid probe incorrectly returns 200", async () => {
     const result = await runChallengeShapeCheck({
       target: "http://localhost:4123/protected",
-      fetchImpl: vi.fn().mockResolvedValue(new Response("ok", { status: 200 }))
+      fetchImpl: vi.fn().mockResolvedValue(new Response("ok", { status: 200 })),
     });
 
     expect(result.status).toBe("fail");
@@ -73,10 +73,10 @@ describe("runChallengeShapeCheck", () => {
         new Response(null, {
           status: 402,
           headers: {
-            "PAYMENT-REQUIRED": "not-base64"
-          }
+            "PAYMENT-REQUIRED": "not-base64",
+          },
         }),
-      )
+      ),
     });
 
     expect(result.status).toBe("fail");
@@ -87,7 +87,7 @@ describe("runChallengeShapeCheck", () => {
     const invalidHeader = Buffer.from(
       JSON.stringify({
         x402Version: 2,
-        accepts: []
+        accepts: [],
       }),
       "utf8",
     ).toString("base64");
@@ -98,10 +98,10 @@ describe("runChallengeShapeCheck", () => {
         new Response(null, {
           status: 402,
           headers: {
-            "PAYMENT-REQUIRED": invalidHeader
-          }
+            "PAYMENT-REQUIRED": invalidHeader,
+          },
         }),
-      )
+      ),
     });
 
     expect(result.status).toBe("fail");

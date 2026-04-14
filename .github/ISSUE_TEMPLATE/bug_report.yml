@@ -1,0 +1,42 @@
+name: Bug report
+description: Report a runtime, docs, or developer workflow bug.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting this. Reproduction details make these much faster to fix.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the bug and the behavior you expected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Share the command, target, profile, and any local setup needed to reproduce.
+      placeholder: |
+        1. Start ...
+        2. Run `pnpm exec tsx src/cli/run.ts run --target ... --profile ...`
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or output
+      description: Paste relevant terminal output, report JSON, or screenshots.
+      render: shell
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node version, and pnpm version.
+      placeholder: Windows 11, Node 22, pnpm 10.32.1

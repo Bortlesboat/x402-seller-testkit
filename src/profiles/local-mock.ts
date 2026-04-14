@@ -7,8 +7,8 @@ export const localMockProfile: RunProfile = {
     "challenge-shape",
     "payment-requirements-parse",
     "malformed-payment-rejected",
-    "success-path"
+    "success-path",
   ],
   requiresPaymentEnv: false,
-  defaultPath: "/protected"
+  defaultPath: "/protected",
 };

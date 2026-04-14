@@ -1,0 +1,32 @@
+name: Feature request
+description: Propose a new check, profile, or developer workflow improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What seller-side risk, workflow gap, or missing protocol coverage is this addressing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the check, profile, or repo improvement you want.
+    validations:
+      required: true
+
+  - type: textarea
+    id: success
+    attributes:
+      label: Success criteria
+      description: What should be true once this is shipped?
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links, reference repos, specs, or example sellers.

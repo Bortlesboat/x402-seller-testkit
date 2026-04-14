@@ -14,7 +14,7 @@ function buildSkip(id: string, summary: string, fix?: string): CheckResult {
     id,
     status: "skip",
     summary,
-    fix
+    fix,
   };
 }
 
@@ -23,14 +23,14 @@ export async function runChecks(config: RunConfig, deps: RunnerDeps = {}) {
 
   const challengeResult = await runChallengeShapeCheck({
     target: config.target,
-    fetchImpl: deps.fetchImpl
+    fetchImpl: deps.fetchImpl,
   });
   results.push(challengeResult);
 
   if (challengeResult.status === "pass" && challengeResult.evidence) {
     results.push(
       runPaymentRequirementsParseCheck({
-        paymentRequired: challengeResult.evidence
+        paymentRequired: challengeResult.evidence,
       }),
     );
   } else {
@@ -47,7 +47,7 @@ export async function runChecks(config: RunConfig, deps: RunnerDeps = {}) {
     await runMalformedPaymentRejectedCheck({
       target: config.target,
       malformedHeaders: malformedPaymentHeaders,
-      fetchImpl: deps.fetchImpl
+      fetchImpl: deps.fetchImpl,
     }),
   );
 
@@ -73,7 +73,7 @@ export async function runChecks(config: RunConfig, deps: RunnerDeps = {}) {
         target: config.target,
         payment: config.payment,
         paymentRequired: challengeResult.evidence,
-        fetchImpl: deps.fetchImpl
+        fetchImpl: deps.fetchImpl,
       }),
     );
   }

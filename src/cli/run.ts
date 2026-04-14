@@ -1,7 +1,10 @@
+#!/usr/bin/env node
+
 import { parseArgs } from "./args.js";
 import { resolveRunConfig } from "../core/config.js";
 import { summarizeRun, writeJsonReport } from "../core/report.js";
 import { runChecks } from "../core/runner.js";
+import { fileURLToPath } from "node:url";
 
 type RunCliDeps = {
   fetchImpl?: typeof fetch;
@@ -24,14 +27,14 @@ export async function runCli(argv: string[], deps: RunCliDeps = {}) {
   try {
     const config = resolveRunConfig({
       target: parsed.target,
-      profile: parsed.profile
+      profile: parsed.profile,
     });
 
     const results = await runChecks(config, { fetchImpl: deps.fetchImpl });
     const summary = summarizeRun({
       target: config.target,
       profile: config.profile.id,
-      results
+      results,
     });
 
     for (const result of results) {
@@ -49,8 +52,16 @@ export async function runCli(argv: string[], deps: RunCliDeps = {}) {
 
     return summary.counts.fail > 0 ? 1 : 0;
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown CLI error";
+    const message =
+      error instanceof Error ? error.message : "Unknown CLI error";
     writeLine(message);
     return 1;
   }
+}
+
+const isEntrypoint = process.argv[1] === fileURLToPath(import.meta.url);
+
+if (isEntrypoint) {
+  const exitCode = await runCli(process.argv.slice(2));
+  process.exitCode = exitCode;
 }

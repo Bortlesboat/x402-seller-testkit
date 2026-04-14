@@ -1,17 +1,22 @@
 import { ConfigError } from "./errors.js";
-import type { PaymentConfig, ResolveRunConfigInput, RunConfig, RunProfile } from "./types.js";
+import type {
+  PaymentConfig,
+  ResolveRunConfigInput,
+  RunConfig,
+  RunProfile,
+} from "./types.js";
 import { basicEvmProfile } from "../profiles/basic-evm.js";
 import { localMockProfile } from "../profiles/local-mock.js";
 
 const profiles: Record<string, RunProfile> = {
   "local-mock": localMockProfile,
-  "basic-evm": basicEvmProfile
+  "basic-evm": basicEvmProfile,
 };
 
 const evmEnvVars = [
   "FACILITATOR_URL",
   "X402_WALLET_ADDRESS",
-  "X402_WALLET_PRIVATE_KEY"
+  "X402_WALLET_PRIVATE_KEY",
 ] as const;
 
 function resolvePaymentConfig(profile: RunProfile): PaymentConfig {
@@ -19,7 +24,7 @@ function resolvePaymentConfig(profile: RunProfile): PaymentConfig {
     return {
       mode: "mock",
       ready: true,
-      missing: []
+      missing: [],
     };
   }
 
@@ -34,7 +39,7 @@ function resolvePaymentConfig(profile: RunProfile): PaymentConfig {
     missing: [...missing],
     facilitatorUrl,
     walletAddress,
-    walletPrivateKey
+    walletPrivateKey,
   };
 }
 
@@ -52,6 +57,6 @@ export function resolveRunConfig(input: ResolveRunConfigInput): RunConfig {
     target: input.target,
     path,
     profile,
-    payment: resolvePaymentConfig(profile)
+    payment: resolvePaymentConfig(profile),
   };
 }

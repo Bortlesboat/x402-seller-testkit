@@ -36,3 +36,21 @@
 - [x] Re-run the focused multi-check suite
 - [x] Add a runnable local example entrypoint and README usage notes
 - [x] Commit the malformed-payment and success-path slice
+- [x] Review the repo for credibility, packaging, and GitHub readiness gaps
+- [x] Restore working repo quality gates (`lint:check`, `format:check`)
+- [x] Add professional GitHub surfaces (`.github` workflow/templates, contribution/security docs)
+- [x] Tighten package metadata and repo hygiene for public presentation
+
+## Publishability cleanup (2026-04-13)
+
+- [x] Audit the repo for GitHub-hostile local path leakage and rough presentation edges
+- [x] Replace publish-facing absolute local links with repo-safe relative links
+- [x] Re-run the full quality gates after the docs cleanup and decide whether the repo is ready to publish or should stay parked locally
+- [x] Park public publication until the repo has an intentional remote/default-branch shape and an explicit license/visibility decision
+
+## Public repo launch (2026-04-13)
+
+- [x] Choose the public repo shape and license instead of leaving publication ambiguous
+- [ ] Create a clean default branch from the current seller testkit state
+- [ ] Create the GitHub repo and push the publish-ready history
+- [ ] Verify the public repo metadata and default branch state

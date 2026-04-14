@@ -5,13 +5,13 @@ import express from "express";
 import {
   decodePaymentSignatureHeader,
   encodePaymentRequiredHeader,
-  encodePaymentResponseHeader
+  encodePaymentResponseHeader,
 } from "@x402/core/http";
 import { parsePaymentPayload } from "@x402/core/schemas";
 
 import {
   buildLocalMockPaymentRequired,
-  matchesLocalMockPayload
+  matchesLocalMockPayload,
 } from "../../src/fixtures/local-mock.js";
 
 type StartedServer = {
@@ -48,7 +48,7 @@ async function listen(app: ReturnType<typeof express>) {
           resolve();
         });
       });
-    }
+    },
   } satisfies StartedServer;
 }
 
@@ -56,16 +56,16 @@ async function postJson(url: string, body: unknown) {
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
 
   const payload = await response.json();
   return {
     ok: response.ok,
     status: response.status,
-    payload
+    payload,
   };
 }
 
@@ -76,13 +76,19 @@ export async function startLocalExpressServer(
 
   app.get("/protected", async (req, res) => {
     const resourceUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
-    const paymentRequired = buildLocalMockPaymentRequired(resourceUrl, input.facilitatorUrl);
+    const paymentRequired = buildLocalMockPaymentRequired(
+      resourceUrl,
+      input.facilitatorUrl,
+    );
     const paymentSignatureHeader = req.get("PAYMENT-SIGNATURE");
 
     if (!paymentSignatureHeader) {
-      res.status(402).set("PAYMENT-REQUIRED", encodePaymentRequiredHeader(paymentRequired)).json({
-        error: "payment required"
-      });
+      res
+        .status(402)
+        .set("PAYMENT-REQUIRED", encodePaymentRequiredHeader(paymentRequired))
+        .json({
+          error: "payment required",
+        });
       return;
     }
 
@@ -95,14 +101,18 @@ export async function startLocalExpressServer(
     }
 
     const parsed = parsePaymentPayload(paymentPayload);
-    if (!parsed.success || parsed.data.x402Version !== 2 || !matchesLocalMockPayload(parsed.data)) {
+    if (
+      !parsed.success ||
+      parsed.data.x402Version !== 2 ||
+      !matchesLocalMockPayload(parsed.data)
+    ) {
       res.status(400).json({ error: "mock payment payload failed validation" });
       return;
     }
 
     const verify = await postJson(`${input.facilitatorUrl}/verify`, {
       paymentPayload: parsed.data,
-      paymentRequired
+      paymentRequired,
     });
 
     if (!verify.ok || !verify.payload.isValid) {
@@ -112,7 +122,7 @@ export async function startLocalExpressServer(
 
     const settle = await postJson(`${input.facilitatorUrl}/settle`, {
       paymentPayload: parsed.data,
-      paymentRequired
+      paymentRequired,
     });
 
     if (!settle.ok || !settle.payload.success) {
@@ -125,7 +135,7 @@ export async function startLocalExpressServer(
       .set("PAYMENT-RESPONSE", encodePaymentResponseHeader(settle.payload))
       .json({
         ok: true,
-        invoiceId: parsed.data.payload.invoiceId
+        invoiceId: parsed.data.payload.invoiceId,
       });
   });
 

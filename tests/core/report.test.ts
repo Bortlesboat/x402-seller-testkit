@@ -13,14 +13,14 @@ describe("summarizeRun", () => {
           id: "success-path",
           status: "fail",
           summary: "Expected 200 after payment",
-          fix: "Check facilitator URL"
+          fix: "Check facilitator URL",
         },
         {
           id: "retry-idempotency",
           status: "skip",
-          summary: "Payment env missing"
-        }
-      ]
+          summary: "Payment env missing",
+        },
+      ],
     });
 
     expect(result.counts).toEqual({ pass: 1, fail: 1, skip: 1 });
@@ -35,15 +35,15 @@ describe("summarizeRun", () => {
           id: "malformed-payment-rejected",
           status: "skip",
           summary: "Skipped for now",
-          fix: "Wire up malformed header fixtures"
+          fix: "Wire up malformed header fixtures",
         },
         {
           id: "success-path",
           status: "fail",
           summary: "Expected 200 after payment",
-          fix: "Check facilitator URL"
-        }
-      ]
+          fix: "Check facilitator URL",
+        },
+      ],
     });
 
     expect(result.nextFix).toContain("Check facilitator URL");

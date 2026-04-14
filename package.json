@@ -1,19 +1,48 @@
 {
   "name": "x402-seller-testkit",
-  "private": true,
   "version": "0.1.0",
+  "description": "Seller-side x402 conformance and regression harness.",
+  "license": "Apache-2.0",
   "type": "module",
+  "packageManager": "pnpm@10.32.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bortlesboat/x402-seller-testkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bortlesboat/x402-seller-testkit/issues"
+  },
+  "homepage": "https://github.com/Bortlesboat/x402-seller-testkit#readme",
   "bin": {
-    "x402-testkit": "./src/cli/run.ts"
+    "x402-testkit": "./dist/cli/run.js"
   },
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "pnpm typecheck && pnpm lint:check && pnpm format:check && pnpm test",
+    "format": "prettier --write \"**/*.{ts,json,md,yml,mjs}\"",
+    "lint": "eslint . --ext .ts --fix",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "example:local": "tsx examples/local-express/main.ts",
     "lint:check": "eslint . --ext .ts",
-    "format:check": "prettier --check \"**/*.{ts,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,json,md,yml,mjs}\""
   },
+  "keywords": [
+    "x402",
+    "bitcoin",
+    "payments",
+    "conformance",
+    "harness",
+    "seller"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ],
   "dependencies": {
     "@x402/core": "^2.9.0",
     "@x402/express": "^2.9.0",
@@ -35,5 +64,8 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vitest": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

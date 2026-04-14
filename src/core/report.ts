@@ -14,12 +14,16 @@ function countStatuses(results: CheckResult[]) {
 }
 
 function chooseNextFix(results: CheckResult[]) {
-  const failingFix = results.find((result) => result.status === "fail" && result.fix)?.fix;
+  const failingFix = results.find(
+    (result) => result.status === "fail" && result.fix,
+  )?.fix;
   if (failingFix) {
     return failingFix;
   }
 
-  return results.find((result) => result.status === "skip" && result.fix)?.fix ?? "";
+  return (
+    results.find((result) => result.status === "skip" && result.fix)?.fix ?? ""
+  );
 }
 
 export function summarizeRun(input: RunSummaryInput): RunSummary {
@@ -28,7 +32,7 @@ export function summarizeRun(input: RunSummaryInput): RunSummary {
     profile: input.profile,
     counts: countStatuses(input.results),
     results: input.results,
-    nextFix: chooseNextFix(input.results)
+    nextFix: chooseNextFix(input.results),
   };
 }
 

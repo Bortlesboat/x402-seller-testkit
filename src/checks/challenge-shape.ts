@@ -11,7 +11,7 @@ function buildFailure(summary: string, fix: string): CheckResult {
     id: "challenge-shape",
     status: "fail",
     summary,
-    fix
+    fix,
   };
 }
 
@@ -43,7 +43,9 @@ export async function runChallengeShapeCheck(
       decodeAndValidatePaymentRequiredHeader(paymentRequiredHeader);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      const summary = message.toLowerCase().includes("invalid payment required header")
+      const summary = message
+        .toLowerCase()
+        .includes("invalid payment required header")
         ? `Invalid PAYMENT-REQUIRED header: ${message}`
         : `Invalid PAYMENT-REQUIRED schema: ${message}`;
 
@@ -57,7 +59,7 @@ export async function runChallengeShapeCheck(
       id: "challenge-shape",
       status: "pass",
       summary: "402 returned with a valid PAYMENT-REQUIRED header",
-      evidence: decodeAndValidatePaymentRequiredHeader(paymentRequiredHeader)
+      evidence: decodeAndValidatePaymentRequiredHeader(paymentRequiredHeader),
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";

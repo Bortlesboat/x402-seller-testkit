@@ -6,7 +6,7 @@ import { parsePaymentPayload, parsePaymentRequired } from "@x402/core/schemas";
 
 import {
   buildLocalMockSettleResponse,
-  matchesLocalMockPayload
+  matchesLocalMockPayload,
 } from "../../src/fixtures/local-mock.js";
 
 type FacilitatorRequestBody = {
@@ -44,7 +44,7 @@ async function listen(app: ReturnType<typeof express>) {
           resolve();
         });
       });
-    }
+    },
   } satisfies StartedServer;
 }
 
@@ -56,13 +56,16 @@ function parseBody(body: FacilitatorRequestBody) {
     return null;
   }
 
-  if (paymentPayload.data.x402Version !== 2 || paymentRequired.data.x402Version !== 2) {
+  if (
+    paymentPayload.data.x402Version !== 2 ||
+    paymentRequired.data.x402Version !== 2
+  ) {
     return null;
   }
 
   return {
     paymentPayload: paymentPayload.data,
-    paymentRequired: paymentRequired.data
+    paymentRequired: paymentRequired.data,
   };
 }
 
@@ -76,14 +79,14 @@ export async function startMockFacilitator(): Promise<StartedServer> {
       res.status(400).json({
         isValid: false,
         invalidReason: "invalid_mock_payment",
-        invalidMessage: "Mock payment payload failed validation."
+        invalidMessage: "Mock payment payload failed validation.",
       });
       return;
     }
 
     res.json({
       isValid: true,
-      payer: "mock-payer"
+      payer: "mock-payer",
     });
   });
 
@@ -95,7 +98,7 @@ export async function startMockFacilitator(): Promise<StartedServer> {
         errorReason: "invalid_mock_payment",
         errorMessage: "Mock payment payload failed validation.",
         transaction: "0xrejected",
-        network: "mock:local"
+        network: "mock:local",
       });
       return;
     }

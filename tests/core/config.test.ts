@@ -6,7 +6,7 @@ describe("resolveRunConfig", () => {
   it("resolves minimal local-mock config with defaults", () => {
     const config = resolveRunConfig({
       target: "http://localhost:4123/protected",
-      profile: "local-mock"
+      profile: "local-mock",
     });
 
     expect(config.profile.id).toBe("local-mock");
@@ -19,7 +19,7 @@ describe("resolveRunConfig", () => {
   it("marks basic-evm paid mode as not ready when env is missing", () => {
     const config = resolveRunConfig({
       target: "https://seller.example.com/paid",
-      profile: "basic-evm"
+      profile: "basic-evm",
     });
 
     expect(config.profile.id).toBe("basic-evm");
@@ -28,7 +28,7 @@ describe("resolveRunConfig", () => {
     expect(config.payment.missing).toEqual([
       "FACILITATOR_URL",
       "X402_WALLET_ADDRESS",
-      "X402_WALLET_PRIVATE_KEY"
+      "X402_WALLET_PRIVATE_KEY",
     ]);
   });
 
@@ -36,7 +36,7 @@ describe("resolveRunConfig", () => {
     expect(() =>
       resolveRunConfig({
         target: "http://localhost:3000/protected",
-        profile: "unknown-profile"
+        profile: "unknown-profile",
       }),
     ).toThrowError("Unknown profile: unknown-profile");
   });

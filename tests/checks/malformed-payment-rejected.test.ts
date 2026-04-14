@@ -15,7 +15,7 @@ describe("runMalformedPaymentRejectedCheck", () => {
     const result = await runMalformedPaymentRejectedCheck({
       target: "http://localhost:4123/protected",
       malformedHeaders: malformedPaymentHeaders,
-      fetchImpl
+      fetchImpl,
     });
 
     expect(result.status).toBe("pass");
@@ -33,7 +33,7 @@ describe("runMalformedPaymentRejectedCheck", () => {
     const result = await runMalformedPaymentRejectedCheck({
       target: "http://localhost:4123/protected",
       malformedHeaders: malformedPaymentHeaders,
-      fetchImpl
+      fetchImpl,
     });
 
     expect(result.status).toBe("fail");
@@ -51,10 +51,28 @@ describe("runMalformedPaymentRejectedCheck", () => {
     const result = await runMalformedPaymentRejectedCheck({
       target: "http://localhost:4123/protected",
       malformedHeaders: malformedPaymentHeaders,
-      fetchImpl
+      fetchImpl,
     });
 
     expect(result.status).toBe("fail");
     expect(result.summary).toContain("500");
+  });
+
+  it("fails when a malformed payment attempt is redirected instead of rejected", async () => {
+    const fetchImpl = vi
+      .fn()
+      .mockResolvedValueOnce(new Response(null, { status: 402 }))
+      .mockResolvedValueOnce(new Response(null, { status: 302 }))
+      .mockResolvedValueOnce(new Response(null, { status: 400 }))
+      .mockResolvedValueOnce(new Response(null, { status: 402 }));
+
+    const result = await runMalformedPaymentRejectedCheck({
+      target: "http://localhost:4123/protected",
+      malformedHeaders: malformedPaymentHeaders,
+      fetchImpl,
+    });
+
+    expect(result.status).toBe("fail");
+    expect(result.summary).toContain("302");
   });
 });

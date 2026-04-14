@@ -3,7 +3,7 @@ import { startLocalExpressServer } from "./server.js";
 
 const facilitator = await startMockFacilitator();
 const seller = await startLocalExpressServer({
-  facilitatorUrl: facilitator.baseUrl
+  facilitatorUrl: facilitator.baseUrl,
 });
 
 console.log(`mock facilitator: ${facilitator.baseUrl}`);

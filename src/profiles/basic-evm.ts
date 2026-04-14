@@ -7,8 +7,8 @@ export const basicEvmProfile: RunProfile = {
     "challenge-shape",
     "payment-requirements-parse",
     "malformed-payment-rejected",
-    "success-path"
+    "success-path",
   ],
   requiresPaymentEnv: true,
-  defaultPath: "/"
+  defaultPath: "/",
 };

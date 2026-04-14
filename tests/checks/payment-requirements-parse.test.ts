@@ -7,7 +7,7 @@ const validPaymentRequired = {
   resource: {
     url: "http://localhost:4123/protected",
     description: "Protected test resource",
-    mimeType: "application/json"
+    mimeType: "application/json",
   },
   accepts: [
     {
@@ -18,16 +18,16 @@ const validPaymentRequired = {
       payTo: "0x0000000000000000000000000000000000000002",
       maxTimeoutSeconds: 60,
       extra: {
-        facilitatorUrl: "https://facilitator.example.com"
-      }
-    }
-  ]
+        facilitatorUrl: "https://facilitator.example.com",
+      },
+    },
+  ],
 } as const;
 
 describe("runPaymentRequirementsParseCheck", () => {
   it("passes for a valid accepted payment requirement", () => {
     const result = runPaymentRequirementsParseCheck({
-      paymentRequired: validPaymentRequired
+      paymentRequired: validPaymentRequired,
     });
 
     expect(result.status).toBe("pass");
@@ -41,10 +41,10 @@ describe("runPaymentRequirementsParseCheck", () => {
         accepts: [
           {
             ...validPaymentRequired.accepts[0],
-            network: ""
-          }
-        ]
-      }
+            network: "",
+          },
+        ],
+      },
     });
 
     expect(result.status).toBe("fail");
@@ -58,10 +58,10 @@ describe("runPaymentRequirementsParseCheck", () => {
         accepts: [
           {
             ...validPaymentRequired.accepts[0],
-            scheme: ""
-          }
-        ]
-      }
+            scheme: "",
+          },
+        ],
+      },
     });
 
     expect(result.status).toBe("fail");
@@ -76,11 +76,11 @@ describe("runPaymentRequirementsParseCheck", () => {
           {
             ...validPaymentRequired.accepts[0],
             extra: {
-              facilitatorUrl: "not-a-url"
-            }
-          }
-        ]
-      }
+              facilitatorUrl: "not-a-url",
+            },
+          },
+        ],
+      },
     });
 
     expect(result.status).toBe("fail");
@@ -91,8 +91,8 @@ describe("runPaymentRequirementsParseCheck", () => {
     const result = runPaymentRequirementsParseCheck({
       paymentRequired: {
         ...validPaymentRequired,
-        accepts: []
-      }
+        accepts: [],
+      },
     });
 
     expect(result.status).toBe("fail");

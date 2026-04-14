@@ -1,4 +1,8 @@
-import type { PaymentPayload, PaymentRequired, SettleResponse } from "@x402/core/types";
+import type {
+  PaymentPayload,
+  PaymentRequired,
+  SettleResponse,
+} from "@x402/core/types";
 
 export const localMockScheme = "exact";
 export const localMockNetwork = "mock:local";
@@ -9,7 +13,7 @@ export const localMockPayer = "mock-payer";
 export const localMockTransaction = "0xmocksettlement";
 export const localMockPayload = {
   signature: "valid-mock-signature",
-  invoiceId: "invoice-123"
+  invoiceId: "invoice-123",
 } as const;
 
 type LocalMockPaymentCandidate = {
@@ -33,7 +37,7 @@ export function buildLocalMockPaymentRequired(
     resource: {
       url: resourceUrl,
       description: "Local mock protected resource",
-      mimeType: "application/json"
+      mimeType: "application/json",
     },
     accepts: [
       {
@@ -44,10 +48,10 @@ export function buildLocalMockPaymentRequired(
         payTo: localMockPayTo,
         maxTimeoutSeconds: 60,
         extra: {
-          facilitatorUrl
-        }
-      }
-    ]
+          facilitatorUrl,
+        },
+      },
+    ],
   };
 }
 
@@ -64,9 +68,9 @@ export function buildLocalMockPaymentPayload(
       asset: localMockAsset,
       payTo: localMockPayTo,
       maxTimeoutSeconds: 60,
-      extra: {}
+      extra: {},
     },
-    payload: { ...localMockPayload }
+    payload: { ...localMockPayload },
   };
 }
 
@@ -76,11 +80,13 @@ export function buildLocalMockSettleResponse(): SettleResponse {
     payer: localMockPayer,
     transaction: localMockTransaction,
     network: localMockNetwork,
-    amount: localMockAmount
+    amount: localMockAmount,
   };
 }
 
-export function matchesLocalMockPayload(paymentPayload: LocalMockPaymentCandidate): boolean {
+export function matchesLocalMockPayload(
+  paymentPayload: LocalMockPaymentCandidate,
+): boolean {
   const payload = paymentPayload.payload;
   return (
     paymentPayload.accepted.scheme === localMockScheme &&

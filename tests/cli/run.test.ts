@@ -2,7 +2,10 @@ import { readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { encodePaymentRequiredHeader, encodePaymentResponseHeader } from "@x402/core/http";
+import {
+  encodePaymentRequiredHeader,
+  encodePaymentResponseHeader,
+} from "@x402/core/http";
 import type { PaymentRequired, SettleResponse } from "@x402/core/types";
 
 import { runCli } from "../../src/cli/run.js";
@@ -14,21 +17,21 @@ const validPaymentRequired: PaymentRequired = {
   resource: {
     url: "http://localhost:4123/protected",
     description: "Protected test resource",
-    mimeType: "application/json"
+    mimeType: "application/json",
   },
   accepts: [
     {
       scheme: "exact",
-      network: "eip155:84532",
+      network: "mock:local",
       amount: "10000",
-      asset: "0x0000000000000000000000000000000000000001",
-      payTo: "0x0000000000000000000000000000000000000002",
+      asset: "mock:usdc",
+      payTo: "seller:local",
       maxTimeoutSeconds: 60,
       extra: {
-        facilitatorUrl: "https://facilitator.example.com"
-      }
-    }
-  ]
+        facilitatorUrl: "https://facilitator.example.com",
+      },
+    },
+  ],
 };
 
 const validSettleResponse: SettleResponse = {
@@ -36,7 +39,7 @@ const validSettleResponse: SettleResponse = {
   payer: "mock-payer",
   transaction: "0xmocksettlement",
   network: "mock:local",
-  amount: "10000"
+  amount: "10000",
 };
 
 function createHappyPathFetchMock() {
@@ -46,8 +49,8 @@ function createHappyPathFetchMock() {
       new Response(null, {
         status: 402,
         headers: {
-          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired)
-        }
+          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired),
+        },
       }),
     )
     .mockResolvedValueOnce(new Response(null, { status: 402 }))
@@ -58,8 +61,8 @@ function createHappyPathFetchMock() {
       new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: {
-          "PAYMENT-RESPONSE": encodePaymentResponseHeader(validSettleResponse)
-        }
+          "PAYMENT-RESPONSE": encodePaymentResponseHeader(validSettleResponse),
+        },
       }),
     );
 }
@@ -74,7 +77,7 @@ describe("runCli", () => {
 
     const exitCode = await runCli(["run"], {
       fetchImpl: vi.fn(),
-      writeLine: (line) => lines.push(line)
+      writeLine: (line) => lines.push(line),
     });
 
     expect(exitCode).toBe(1);
@@ -87,10 +90,16 @@ describe("runCli", () => {
     const fetchImpl = createHappyPathFetchMock();
 
     const exitCode = await runCli(
-      ["run", "--target", "http://localhost:4123/protected", "--profile", "local-mock"],
+      [
+        "run",
+        "--target",
+        "http://localhost:4123/protected",
+        "--profile",
+        "local-mock",
+      ],
       {
         fetchImpl,
-        writeLine: (line) => lines.push(line)
+        writeLine: (line) => lines.push(line),
       },
     );
 
@@ -114,11 +123,11 @@ describe("runCli", () => {
         "--profile",
         "local-mock",
         "--report-json",
-        reportPath
+        reportPath,
       ],
       {
         fetchImpl,
-        writeLine: vi.fn()
+        writeLine: vi.fn(),
       },
     );
 
@@ -137,16 +146,22 @@ describe("runCli", () => {
       new Response(null, {
         status: 402,
         headers: {
-          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired)
-        }
+          "PAYMENT-REQUIRED": encodePaymentRequiredHeader(validPaymentRequired),
+        },
       }),
     );
 
     const exitCode = await runCli(
-      ["run", "--target", "http://localhost:4123/protected", "--profile", "basic-evm"],
+      [
+        "run",
+        "--target",
+        "http://localhost:4123/protected",
+        "--profile",
+        "basic-evm",
+      ],
       {
         fetchImpl,
-        writeLine: (line) => lines.push(line)
+        writeLine: (line) => lines.push(line),
       },
     );
 

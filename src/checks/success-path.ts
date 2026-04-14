@@ -1,7 +1,7 @@
 import {
   decodePaymentRequiredHeader,
   decodePaymentResponseHeader,
-  encodePaymentSignatureHeader
+  encodePaymentSignatureHeader,
 } from "@x402/core/http";
 import { parsePaymentRequired } from "@x402/core/schemas";
 
@@ -15,23 +15,30 @@ type SuccessPathCheckInput = {
   fetchImpl?: typeof fetch;
 };
 
-function buildFailure(summary: string, fix: string, evidence?: unknown): CheckResult {
+function buildFailure(
+  summary: string,
+  fix: string,
+  evidence?: unknown,
+): CheckResult {
   return {
     id: "success-path",
     status: "fail",
     summary,
     fix,
-    evidence
+    evidence,
   };
 }
 
-export async function runSuccessPathCheck(input: SuccessPathCheckInput): Promise<CheckResult> {
+export async function runSuccessPathCheck(
+  input: SuccessPathCheckInput,
+): Promise<CheckResult> {
   if (input.payment.mode !== "mock") {
     return {
       id: "success-path",
       status: "skip",
-      summary: "Skipped because only the local mock paid path is implemented today",
-      fix: "Add a real EVM payment client before enabling the paid success path for this profile."
+      summary:
+        "Skipped because only the local mock paid path is implemented today",
+      fix: "Add a real EVM payment client before enabling the paid success path for this profile.",
     };
   }
 
@@ -47,7 +54,8 @@ export async function runSuccessPathCheck(input: SuccessPathCheckInput): Promise
       );
     }
 
-    const paymentRequiredHeader = unpaidResponse.headers.get("PAYMENT-REQUIRED");
+    const paymentRequiredHeader =
+      unpaidResponse.headers.get("PAYMENT-REQUIRED");
     if (!paymentRequiredHeader) {
       return buildFailure(
         "Unpaid probe returned 402 but PAYMENT-REQUIRED header was missing",
@@ -86,8 +94,8 @@ export async function runSuccessPathCheck(input: SuccessPathCheckInput): Promise
   const paymentPayload = buildLocalMockPaymentPayload(parsed.data.resource);
   const response = await fetchImpl(input.target, {
     headers: {
-      "PAYMENT-SIGNATURE": encodePaymentSignatureHeader(paymentPayload)
-    }
+      "PAYMENT-SIGNATURE": encodePaymentSignatureHeader(paymentPayload),
+    },
   });
 
   if (response.status < 200 || response.status >= 300) {
@@ -108,6 +116,7 @@ export async function runSuccessPathCheck(input: SuccessPathCheckInput): Promise
 
   try {
     const settlement = decodePaymentResponseHeader(paymentResponseHeader);
+    const accepted = parsed.data.accepts[0];
 
     if (!settlement.success) {
       return buildFailure(
@@ -117,11 +126,28 @@ export async function runSuccessPathCheck(input: SuccessPathCheckInput): Promise
       );
     }
 
+    if (settlement.network !== accepted.network) {
+      return buildFailure(
+        `Settlement network ${settlement.network} did not match the challenged network ${accepted.network}`,
+        "Return a PAYMENT-RESPONSE header whose network matches the accepted payment requirement.",
+        settlement,
+      );
+    }
+
+    if (settlement.amount !== accepted.amount) {
+      return buildFailure(
+        `Settlement amount ${settlement.amount} did not match the challenged amount ${accepted.amount}`,
+        "Return a PAYMENT-RESPONSE header whose amount matches the accepted payment requirement.",
+        settlement,
+      );
+    }
+
     return {
       id: "success-path",
       status: "pass",
-      summary: "Paid request succeeded and returned a valid PAYMENT-RESPONSE header",
-      evidence: settlement
+      summary:
+        "Paid request succeeded and returned a valid PAYMENT-RESPONSE header",
+      evidence: settlement,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
