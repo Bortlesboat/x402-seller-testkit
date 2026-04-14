@@ -51,6 +51,6 @@
 ## Public repo launch (2026-04-13)
 
 - [x] Choose the public repo shape and license instead of leaving publication ambiguous
-- [ ] Create a clean default branch from the current seller testkit state
-- [ ] Create the GitHub repo and push the publish-ready history
-- [ ] Verify the public repo metadata and default branch state
+- [x] Create a clean default branch from the current seller testkit state
+- [x] Create the GitHub repo and push the publish-ready history
+- [x] Verify the public repo metadata and default branch state
