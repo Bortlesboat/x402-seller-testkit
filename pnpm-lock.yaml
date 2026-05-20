@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@x402/core':
-        specifier: ^2.9.0
-        version: 2.9.0
+        specifier: ^2.12.0
+        version: 2.12.0
       '@x402/express':
         specifier: ^2.9.0
         version: 2.9.0(ethers@6.16.0)(express@5.2.1)(typescript@6.0.2)
@@ -649,6 +649,9 @@ packages:
 
   '@x402/core@2.10.0':
     resolution: {integrity: sha512-n9Exnt1HN4LFaINaPYhk6Cy3ICBt0e46XN1Uo5i6efIZfIoqP6pY8ONSX/M9bU4F1fpvMj0JZ3xdcBZCiGInfw==}
+
+  '@x402/core@2.12.0':
+    resolution: {integrity: sha512-dLae9AbZRN/W7GsKe9ngqGsflnP+esE72s0GjmqDZbPihM/tlHCA6UnDdgM0qfOiDOf9iL+mmCs1OyLWpwnGLQ==}
 
   '@x402/core@2.9.0':
     resolution: {integrity: sha512-IqPITHYx6XHlgLPtparuKKwoB+3wQdgt0F+WUH1e3WHMeiWdp+xTtQDy+6yOKuObNFI1S1iVbQFz0GivR/Vv3w==}
@@ -2536,6 +2539,10 @@ snapshots:
       tinyrainbow: 2.0.0
 
   '@x402/core@2.10.0':
+    dependencies:
+      zod: 3.25.76
+
+  '@x402/core@2.12.0':
     dependencies:
       zod: 3.25.76
 
