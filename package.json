@@ -5,6 +5,11 @@
   "license": "Apache-2.0",
   "type": "module",
   "packageManager": "pnpm@10.32.1",
+  "pnpm": {
+    "overrides": {
+      "ws": "8.21.0"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Bortlesboat/x402-seller-testkit.git"
@@ -45,7 +50,7 @@
   ],
   "dependencies": {
     "@x402/core": "^2.12.0",
-    "@x402/express": "^2.9.0",
+    "@x402/express": "^2.21.0",
     "@x402/fetch": "^2.10.0",
     "express": "^5.1.0",
     "zod": "^4.3.6"
