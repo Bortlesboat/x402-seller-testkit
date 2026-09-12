@@ -20,8 +20,8 @@ importers:
         specifier: ^2.21.0
         version: 2.21.0(ethers@6.16.0)(express@5.2.1)(typescript@6.0.3)
       '@x402/fetch':
-        specifier: ^2.10.0
-        version: 2.21.0
+        specifier: ^2.22.0
+        version: 2.22.0
       express:
         specifier: ^5.1.0
         version: 5.2.1
@@ -668,6 +668,9 @@ packages:
   '@x402/core@2.21.0':
     resolution: {integrity: sha512-0djKE7V5/JKDMrjRe5he3DoMFzlbVnUcvMmLAb2j6OoAJDamupkFh6fFrXeoHwjkBIxOFUzjGI4FVixz2dMxSA==}
 
+  '@x402/core@2.22.0':
+    resolution: {integrity: sha512-hYySs/PvukqRipC2mKqrsn/jx2U/p5EGnN3clQ2CIcApwtoFuG77CqpC3Wy7Fdp/juW8t8quiPVnqGuIkfix1Q==}
+
   '@x402/express@2.21.0':
     resolution: {integrity: sha512-sEKRsHZLimWiaROrnm3G0LEXW/a5+7U5/TEMQ8+kmmePcPcMBg8jzBNDK6WXm2KOWnTWTRbKrdJMuT7eerYW0Q==}
     peerDependencies:
@@ -680,8 +683,8 @@ packages:
   '@x402/extensions@2.21.0':
     resolution: {integrity: sha512-0cZTRVtnWUUsp9KxBvbMERtLKo+57Ru1IhbAHtpgNdK08/LJWtK6CpqM4wgta8nMPth3jMvB/PdS3OdNaEPaBQ==}
 
-  '@x402/fetch@2.21.0':
-    resolution: {integrity: sha512-LEiJ8jjb8fmCNgF1yMjLoVRtrg8gtb/zJgBDLW7t/KPbntDDqgru+nd1OLU1qyyp9D2I7ULYP420eHVyAVZ12w==}
+  '@x402/fetch@2.22.0':
+    resolution: {integrity: sha512-+uMCPGXw1h7YGjS778YnwUi7YvZ5Ny8XeFjBL8TvQuy9T+j8O5x/zDQu9nyNaOa/OppTqVh+CkpW+xs17ePyXg==}
 
   abitype@1.2.3:
     resolution: {integrity: sha512-Ofer5QUnuUdTFsBRwARMoWKOH1ND5ehwYhJ3OJ/BQO+StkwQjHw0XyVh4vDttzHB7QOFhPHa/o413PJ82gU/Tg==}
@@ -2520,6 +2523,10 @@ snapshots:
     dependencies:
       zod: 3.25.76
 
+  '@x402/core@2.22.0':
+    dependencies:
+      zod: 3.25.76
+
   '@x402/express@2.21.0(ethers@6.16.0)(express@5.2.1)(typescript@6.0.3)':
     dependencies:
       '@x402/core': 2.21.0
@@ -2548,9 +2555,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@x402/fetch@2.21.0':
+  '@x402/fetch@2.22.0':
     dependencies:
-      '@x402/core': 2.21.0
+      '@x402/core': 2.22.0
 
   abitype@1.2.3(typescript@6.0.3)(zod@3.25.76):
     optionalDependencies:
