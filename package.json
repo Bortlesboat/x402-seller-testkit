@@ -53,21 +53,21 @@
   "dependencies": {
     "@x402/core": "^2.12.0",
     "@x402/express": "^2.21.0",
-    "@x402/fetch": "^2.25.0",
+    "@x402/fetch": "^2.26.0",
     "express": "^5.1.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
-    "@types/node": "^26.5.1",
     "@types/express": "^5.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.58.2",
-    "@typescript-eslint/parser": "^8.67.0",
+    "@types/node": "^26.5.1",
+    "@typescript-eslint/eslint-plugin": "^8.67.0",
+    "@typescript-eslint/parser": "^8.70.0",
     "eslint": "^9.24.0",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsdoc": "^64.3.10",
+    "eslint-plugin-jsdoc": "^64.5.4",
     "eslint-plugin-prettier": "^5.2.6",
-    "prettier": "^3.5.2",
+    "prettier": "^3.9.8",
     "tsx": "^4.23.13",
     "typescript": "^6.0.2",
     "vitest": "^5.0.0"
