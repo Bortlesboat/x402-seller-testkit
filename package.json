@@ -55,7 +55,7 @@
     "@x402/express": "^2.21.0",
     "@x402/fetch": "^2.26.0",
     "express": "^5.1.0",
-    "zod": "^4.3.6"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
