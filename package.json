@@ -51,9 +51,9 @@
     "SECURITY.md"
   ],
   "dependencies": {
-    "@x402/core": "^2.28.0",
-    "@x402/express": "^2.28.0",
-    "@x402/fetch": "^2.28.0",
+    "@x402/core": "^2.29.0",
+    "@x402/express": "^2.29.0",
+    "@x402/fetch": "^2.29.0",
     "express": "^5.3.0",
     "zod": "^4.6.6"
   },
@@ -61,8 +61,8 @@
     "@eslint/js": "^9.24.0",
     "@types/express": "^5.0.1",
     "@types/node": "^26.6.5",
-    "@typescript-eslint/eslint-plugin": "^8.71.2",
-    "@typescript-eslint/parser": "^8.72.0",
+    "@typescript-eslint/eslint-plugin": "^8.72.0",
+    "@typescript-eslint/parser": "^8.72.1",
     "eslint": "^9.24.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsdoc": "^65.4.2",
