@@ -51,7 +51,7 @@
     "SECURITY.md"
   ],
   "dependencies": {
-    "@x402/core": "^2.29.0",
+    "@x402/core": "^2.31.0",
     "@x402/express": "^2.29.0",
     "@x402/fetch": "^2.31.0",
     "express": "^5.3.0",
