@@ -20,8 +20,8 @@ importers:
         specifier: ^2.29.0
         version: 2.29.0(ethers@6.16.0)(express@5.3.0)(typescript@6.0.3)
       '@x402/fetch':
-        specifier: ^2.29.0
-        version: 2.29.0
+        specifier: ^2.31.0
+        version: 2.31.0
       express:
         specifier: ^5.3.0
         version: 5.3.0
@@ -667,8 +667,8 @@ packages:
   '@x402/extensions@2.29.0':
     resolution: {integrity: sha512-FCpjZ6QR6ZtHTRZBV7VHMt7tc66LnTrpKDERiL3atXlLu4PlmgiulHt9PWE+Ktm5iUbXr3dAYZu2e7XrVd/XgA==}
 
-  '@x402/fetch@2.29.0':
-    resolution: {integrity: sha512-ym/+6Cg7uUqScrE/pCV0sfmKecX46KTk5B/VKyJo579Xn1Z6dq2KiLd04rTvvO2xldLKKluU/3SqpDIgkp6T9Q==}
+  '@x402/fetch@2.31.0':
+    resolution: {integrity: sha512-Td+Nxhy0TIwKMZ4G7q+lv+oD5SsRI1T0peGE34lSZaaZwXvqQbeR/TQDzex6tQpljq12+D7Mjwp1wX0Maa2Zeg==}
 
   abitype@1.2.3:
     resolution: {integrity: sha512-Ofer5QUnuUdTFsBRwARMoWKOH1ND5ehwYhJ3OJ/BQO+StkwQjHw0XyVh4vDttzHB7QOFhPHa/o413PJ82gU/Tg==}
@@ -2529,9 +2529,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@x402/fetch@2.29.0':
+  '@x402/fetch@2.31.0':
     dependencies:
-      '@x402/core': 2.29.0
+      '@x402/core': 2.31.0
 
   abitype@1.2.3(typescript@6.0.3)(zod@4.6.7):
     optionalDependencies:
